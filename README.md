@@ -1,41 +1,53 @@
 # PID Controller Auto-Tuning (Python)
 
-This project implements automatic tuning of a PID controller using grid search optimization.
-It finds optimal values of (K_p), (K_i), and (K_d) to improve system performance based on key control metrics.
+This project implements automatic tuning of a PID controller using a grid search optimization approach. It computes optimal values of Kp, Ki, and Kd to improve system performance based on standard control system metrics.
 
 ---
 
 ## 📌 Overview
 
-A Proportional-Integral-Derivative (PID) controller is widely used in control systems to regulate output response.
+A Proportional-Integral-Derivative (PID) controller is widely used in engineering systems to regulate output response. However, tuning PID parameters manually can be time-consuming and inefficient.
 
-This project demonstrates how PID controllers can significantly improve system response by reducing rise time, settling time, and steady-state error through automated tuning.
+This project demonstrates an automated approach to PID tuning by evaluating multiple parameter combinations and selecting the best set based on system performance.
 
-This project:
+Key capabilities:
 
-* Accepts any transfer function as input
-* Simulates system response
-* Searches for the best PID parameters
-* Optimizes performance automatically
+- Accepts any user-defined transfer function  
+- Simulates closed-loop system response  
+- Automatically tunes PID parameters  
+- Evaluates performance using standard control metrics  
 
 ---
 
 ## ⚙️ Features
 
-* Accepts custom transfer function input
-* Automatic PID tuning using grid search
-* Optimization-based tuning (alternative to classical methods like Ziegler–Nichols)
-* Evaluates system using:
+- Supports custom transfer function input  
+- Automatic PID tuning using grid search  
+- Uses optimization instead of manual tuning methods  
+- Evaluates system performance using:
+  - Rise Time  
+  - Settling Time  
+  - Overshoot  
+  - Steady-State Error  
+- Compares:
+  - Uncontrolled system  
+  - Optimized PID-controlled system  
+- Generates:
+  - Step response plots  
+  - Error vs time plots  
 
-  * Rise Time
-  * Settling Time
-  * Overshoot
-  * Steady-state error
-* Compares system behavior:
+---
 
-  * Without PID
-  * With optimized PID
-* Generates response and error plots
+## 🌍 Applications
+
+PID controllers are widely used in:
+
+- Industrial automation  
+- Robotics and motion control  
+- Temperature and process control  
+- Power and electronic systems  
+
+This project highlights how automated tuning can improve system performance without manual trial-and-error.
 
 ---
 
@@ -45,25 +57,27 @@ The system is modeled using a transfer function:
 
 G(s) = 1 / (s² + 2s + 1)
 
-A PID controller is defined as:
+The PID controller is defined as:
 
 C(s) = Kp + Ki/s + Kd·s
 
-### Algorithm:
+### Optimization Strategy
 
-1. Iterate over a range of (K_p, K_i, K_d) values
-2. Simulate closed-loop response
-3. Compute performance metrics
-4. Use a cost function to evaluate performance
-5. Select parameters that minimize the cost
-   
+A brute-force grid search is performed over predefined ranges of Kp, Ki, and Kd.
+
+For each combination:
+
+1. The closed-loop system is simulated  
+2. Step response characteristics are computed  
+3. A cost function evaluates performance  
+
 ### Cost Function
 
-The optimization minimizes a weighted sum of key performance metrics:
+The objective is to minimize:
 
-Cost = w1 × Settling Time + w2 × Overshoot + w3 × Steady-State Error
+Cost = w1 × (Settling Time) + w2 × (Overshoot) + w3 × (Steady-State Error)
 
-This ensures a balance between fast response, stability, and accuracy.
+This ensures a balance between speed, stability, and accuracy.
 
 ---
 
@@ -71,28 +85,28 @@ This ensures a balance between fast response, stability, and accuracy.
 
 ### Input Transfer Function
 
-Numerator: `1`
-Denominator: `1 2 1`
+- Numerator: 1  
+- Denominator: 1 2 1  
 
 ### Without PID
 
-* Rise Time: **3.367 s**
-* Settling Time: **5.879 s**
-* Overshoot: **0.00%**
+- Rise Time: 3.367 s  
+- Settling Time: 5.879 s  
+- Overshoot: 0.00%  
 
 ### With Optimized PID
 
-* Rise Time: **0.352 s**
-* Settling Time: **0.553 s**
-* Overshoot: **1.23%**
-* Steady-state error: **0.0004**
+- Rise Time: 0.352 s  
+- Settling Time: 0.553 s  
+- Overshoot: 1.23%  
+- Steady-State Error: 0.0004  
 
 ### 🚀 Improvement
 
-* ~10× faster rise time
-* ~10× faster settling time
-* Very low steady-state error
-* Minimal overshoot
+- ~10× faster rise time  
+- ~10× faster settling time  
+- Near-zero steady-state error  
+- Minimal overshoot  
 
 ---
 
@@ -108,10 +122,10 @@ The optimized PID controller significantly improves system response compared to 
 
 ## 🛠️ Technologies Used
 
-* Python
-* NumPy
-* Matplotlib
-* Control Systems Library (`python-control`)
+- Python  
+- NumPy  
+- Matplotlib  
+- python-control (Control Systems Library)  
 
 ---
 
@@ -119,44 +133,46 @@ The optimized PID controller significantly improves system response compared to 
 
 ### 1. Install dependencies
 
-```
 pip install numpy matplotlib control
-```
 
-### 2. Run the script
+### 2. Run the program
 
-```
 python PID-Controller-Auto-Tuning.py
-```
 
-### 3. Provide input
+### 3. Enter system parameters
 
-```
-Enter numerator: 1
-Enter denominator: 1 2 1
-```
+Example:
+
+Enter numerator: 1  
+Enter denominator: 1 2 1  
 
 ---
 
 ## 📁 Project Structure
 
-```
 PID-Auto-Tuning/
 │
-├── PID-Controller-Auto-Tuning.py
-├── results/
-│   └── output_pid.png
-└── README.md
-```
+├── PID-Controller-Auto-Tuning.py  
+├── results/  
+│   └── output_pid.png  
+└── README.md  
+
+---
+
+## ⚠️ Limitations
+
+- Grid search is computationally expensive  
+- Performance depends on chosen parameter ranges  
+- Not suitable for complex nonlinear or high-order systems  
 
 ---
 
 ## 📌 Future Improvements
 
-* Implement advanced optimization (Genetic Algorithm / PSO)
-* Add GUI for better usability
-* Support higher-order systems
-* Real-time system integration
+- Implement advanced optimization techniques (Genetic Algorithm / PSO)  
+- Add graphical user interface (GUI)  
+- Extend support to higher-order systems  
+- Integrate with real-time hardware systems  
 
 ---
 
@@ -168,5 +184,5 @@ This project is licensed under the MIT License.
 
 ## 👨‍💻 Author
 
-Sayan Ghosh
+Sayan Ghosh  
 ECE Undergraduate
