@@ -56,6 +56,14 @@ C(s) = Kp + Ki/s + Kd·s
 3. Compute performance metrics
 4. Use a cost function to evaluate performance
 5. Select parameters that minimize the cost
+   
+### Cost Function
+
+The optimization minimizes a weighted sum of key performance metrics:
+
+Cost = w1 × Settling Time + w2 × Overshoot + w3 × Steady-State Error
+
+This ensures a balance between fast response, stability, and accuracy.
 
 ---
 
