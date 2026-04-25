@@ -1,4 +1,4 @@
-# PID Controller Auto-Tuning (Python)
+# PID Parameter Optimization using Grid Search (Python)
 
 This project implements automatic tuning of a PID controller using a grid search optimization approach. It computes optimal values of Kp, Ki, and Kd to improve system performance based on standard control system metrics.
 
