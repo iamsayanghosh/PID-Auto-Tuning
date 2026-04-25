@@ -9,6 +9,8 @@ It finds optimal values of (K_p), (K_i), and (K_d) to improve system performance
 
 A Proportional-Integral-Derivative (PID) controller is widely used in control systems to regulate output response.
 
+This project demonstrates how PID controllers can significantly improve system response by reducing rise time, settling time, and steady-state error through automated tuning.
+
 This project:
 
 * Accepts any transfer function as input
@@ -22,6 +24,7 @@ This project:
 
 * Accepts custom transfer function input
 * Automatic PID tuning using grid search
+* Optimization-based tuning (alternative to classical methods like Ziegler–Nichols)
 * Evaluates system using:
 
   * Rise Time
@@ -40,22 +43,19 @@ This project:
 
 The system is modeled using a transfer function:
 
-[
-G(s) = \frac{1}{s^2 + 2s + 1}
-]
+G(s) = 1 / (s² + 2s + 1)
 
 A PID controller is defined as:
 
-[
-C(s) = K_p + \frac{K_i}{s} + K_d s
-]
+C(s) = Kp + Ki/s + Kd·s
 
-The algorithm:
+### Algorithm:
 
-1. Iterates over a range of (K_p, K_i, K_d)
-2. Simulates closed-loop response
-3. Calculates performance metrics
-4. Uses a cost function to select optimal parameters
+1. Iterate over a range of (K_p, K_i, K_d) values
+2. Simulate closed-loop response
+3. Compute performance metrics
+4. Use a cost function to evaluate performance
+5. Select parameters that minimize the cost
 
 ---
 
@@ -90,7 +90,11 @@ Denominator: `1 2 1`
 
 ## 📈 Output
 
+The optimized PID controller significantly improves system response compared to the uncontrolled system.
+
 ### System vs Optimized PID Response
+
+![PID Output](results/output_pid.png)
 
 ---
 
@@ -105,19 +109,19 @@ Denominator: `1 2 1`
 
 ## ▶️ How to Run
 
-1. Install dependencies:
+### 1. Install dependencies
 
 ```
 pip install numpy matplotlib control
 ```
 
-2. Run the script:
+### 2. Run the script
 
 ```
 python PID-Controller-Auto-Tuning.py
 ```
 
-3. Enter transfer function:
+### 3. Provide input
 
 ```
 Enter numerator: 1
@@ -142,9 +146,9 @@ PID-Auto-Tuning/
 ## 📌 Future Improvements
 
 * Implement advanced optimization (Genetic Algorithm / PSO)
-* GUI for easier input/output
-* Support for higher-order systems
-* Real-time simulation integration
+* Add GUI for better usability
+* Support higher-order systems
+* Real-time system integration
 
 ---
 
